@@ -57,6 +57,9 @@ fi
                                                 #/bin/echo "#include \"/var/dialplan/dahdi_$8.conf\"" >> /etc/asterisk/extensions.conf
                                 fi
 
+                                chan1=`grep -h "channel1" "/var/user/dahdi_*.conf"`
+                                chan2=`grep -h "channel2" "/var/user/dahdi_*.conf"`
+                                chan3=`grep -h "channel3" "/var/user/dahdi_*.conf"`
                                 if ( find /var/user/dahdi_$1.conf )
                                         then
                                                 #Message pour indiquer le groupe
@@ -67,25 +70,26 @@ fi
                                                 /bin/echo "callerid=combinet <$4>" >> /var/user/dahdi_$1.conf
                                                 /bin/echo "echocancel=yes" >> /var/user/dahdi_$1.conf
 
-                                                if [ grep -h "channel=3" "/var/user/dahdi_*.conf" ];
+                                                if [ -z "$chan3" ];
 
-                                                        then /bin/echo "Plus de disponibilité pour Dahdi";
-
-                                                elif [ grep -h "channel=2" "/var/user/dahdi_*.conf" ];
-
-                                                        then
+                                                        then 
                                                                 /bin/echo "group=3" >> /var/user/dahdi_$1.conf
                                                                 /bin/echo "channel=3" >> /var/user/dahdi_$1.conf
 
-                                                elif [ grep -h "channel=1" "/var/user/dahdi_*.conf" ];
+                                                elif [ -z "$chan2" ];
 
                                                         then
                                                                 /bin/echo "group=2" >> /var/user/dahdi_$1.conf
                                                                 /bin/echo "channel=2" >> /var/user/dahdi_$1.conf
 
-                                                else
-                                                                     /bin/echo "group=1" >> /var/user/dahdi_$1.conf
+                                                elif [ -z "$chan1" ];
+
+                                                        then
+                                                                /bin/echo "group=1" >> /var/user/dahdi_$1.conf
                                                                 /bin/echo "channel=1" >> /var/user/dahdi_$1.conf
+
+                                                else
+                                                                     /bin/echo "Plus de disponibilité pour Dahdi";
                                                 fi
 
                                                 #/bin/echo "#include \"/var/dialplan/dahdi_$1.conf\"" >> /etc/asterisk/chan_dahdi.conf
