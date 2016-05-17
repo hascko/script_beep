@@ -8,7 +8,7 @@
 
 if test -z "$1";
         then
-                /bin/echo "Erreur ! Entrer en argument le nom de l'utilisateur"
+                /bin/echo "Erreur ! Entrer les bons arguments"
         else
 
                 if [ $5 = 'SIP' ]
@@ -18,6 +18,10 @@ if test -z "$1";
                                                 #Ajout du dialplan
                                                 /bin/echo "Plan d'appels existants"
                                                 /bin/echo "exten => $4,1,Macro(travail,$1)" >> /var/dialplan/$8.conf
+
+                                                #Ajout du mail
+                                                /bin/echo "[$8]" >> /etc/asterisk/voicemail.conf
+                                                /bin/echo "$4 => $2,$1,$3" >> /etc/asterisk/voicemail.conf
                                         else
                                                 #Creation du dialplan
                                                 /bin/echo "[$8]" >> /var/dialplan/$8.conf
@@ -26,6 +30,10 @@ if test -z "$1";
                                                 /bin/echo " " >> /var/dialplan/$8.conf
                                                 /bin/echo "exten => $4,1,Macro(travail,$1)" >> /var/dialplan/$8.conf
                                                 /bin/echo "#include \"/var/dialplan/$8.conf\"" >> /etc/asterisk/extensions.conf
+
+                                                #Ajout du mail
+                                                /bin/echo "[$8]" >> /etc/asterisk/voicemail.conf
+                                                /bin/echo "$4 => $2,$1,$3" >> /etc/asterisk/voicemail.conf
                                 fi
 
                                 if ( find /var/user/$1.conf )
@@ -41,7 +49,8 @@ if test -z "$1";
                                                 /bin/echo "username=$1" >> /var/user/$1.conf
                                                 /bin/echo "host=dynamic" >> /var/user/$1.conf
                                                 /bin/echo "#include \"/var/user/$1.conf\"" >> /etc/asterisk/sip.conf
-fi
+                                fi
+                        
                         elif [ $5 = 'DAHDI' ]
                                 then
                                 if ( find /var/dialplan/dahdi_$8.conf )
@@ -49,17 +58,26 @@ fi
                                                 #Ajout du dialplan
                                                 /bin/echo "Plan d'appels existants"
                                                 /bin/echo "exten => $4,1,Dial(dahdi/2/30)" >> /var/dialplan/dahdi_$8.conf
+
+                                                #Ajout du mail
+                                                /bin/echo "[$8]" >> /etc/asterisk/voicemail.conf
+                                                /bin/echo "$4 => $2,$1,$3" >> /etc/asterisk/voicemail.conf
                                         else
                                                 #Creation du dialplan
                                                 /bin/echo "[$8]" >> /var/dialplan/dahdi_$8.conf
                                                 /bin/echo " " >> /var/dialplan/dahdi_$8.conf
                                                 /bin/echo "exten => $4,1,Dial(dahdi,2,30)" >> /var/dialplan/dahdi_$8.conf
-                                                #/bin/echo "#include \"/var/dialplan/dahdi_$8.conf\"" >> /etc/asterisk/extensions.conf
+                                                /bin/echo "#include \"/var/dialplan/dahdi_$8.conf\"" >> /etc/asterisk/extensions.conf
+
+                                                #Ajout du mail
+                                                /bin/echo "[$8]" >> /etc/asterisk/voicemail.conf
+                                                /bin/echo "$4 => $2,$1,$3" >> /etc/asterisk/voicemail.conf
                                 fi
 
                                 chan1=`grep -h "channel1" "/var/user/dahdi_*.conf"`
                                 chan2=`grep -h "channel2" "/var/user/dahdi_*.conf"`
                                 chan3=`grep -h "channel3" "/var/user/dahdi_*.conf"`
+
                                 if ( find /var/user/dahdi_$1.conf )
                                         then
                                                 #Message pour indiquer le groupe
