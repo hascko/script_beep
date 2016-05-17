@@ -20,6 +20,10 @@ if test -z $#;
 
 	                #Suppression de l'utilisateur
 	                rm /var/user/$1.conf
+
+                    #Suppression dqns SIP
+                    sed '$1/d' /etc/asterisk/sip.conf > /var/tmp/temp
+                    mv /var/tmp/temp /etc/asterisk/sip.conf
 	            else
                     #Affichage du message
                     /bin/echo "Entrer un contexte existant"
