@@ -31,6 +31,7 @@ if test -z $#;
 	            else
                     #Affichage du message
                     /bin/echo "Entrer un contexte existant"
+            fi
 fi
 
 #Redemarrage de Asterisk
