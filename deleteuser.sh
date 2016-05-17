@@ -24,6 +24,10 @@ if test -z $#;
                     #Suppression dqns SIP
                     sed '$1/d' /etc/asterisk/sip.conf > /var/tmp/temp
                     mv /var/tmp/temp /etc/asterisk/sip.conf
+
+                    #Suppression dqns Voice;ail
+                    sed '$1/d' /etc/asterisk/voicemail.conf > /var/tmp/temp
+                    mv /var/tmp/temp /etc/asterisk/voicemail.conf
 	            else
                     #Affichage du message
                     /bin/echo "Entrer un contexte existant"
