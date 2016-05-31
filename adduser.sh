@@ -31,7 +31,7 @@ if test -z $#;
                                         then
                                                 #Ajout du dialplan
                                                 /bin/echo "Plan d'appels existants"
-                                                /bin/echo "exten => $4,1,Macro(travail,$1)" >> /var/dialplan/$9.conf
+                                                /bin/echo "exten => $4,1,Macro(voicemail,$1)" >> /var/dialplan/$9.conf
 
                                                 #Ajout du mail
                                                 /bin/echo "[$9]" >> /etc/asterisk/voicemail.conf
@@ -40,9 +40,9 @@ if test -z $#;
                                                 #Creation du dialplan
                                                 /bin/echo "[$9]" >> /var/dialplan/$9.conf
                                                 /bin/echo "#include \"/var/dialplan/macro.conf\"" >> /var/dialplan/$9.conf
-                                                /bin/echo "include => macro-travail" >> /var/dialplan/$9.conf
+                                                /bin/echo "include => macro-voicemail" >> /var/dialplan/$9.conf
                                                 /bin/echo " " >> /var/dialplan/$9.conf
-                                                /bin/echo "exten => $4,1,Macro(travail,$1)" >> /var/dialplan/$9.conf
+                                                /bin/echo "exten => $4,1,Macro(voicemail,$1)" >> /var/dialplan/$9.conf
                                                 /bin/echo "#include \"/var/dialplan/$9.conf\"" >> /etc/asterisk/extensions.conf
 
                                                 #Ajout du mail
@@ -96,15 +96,23 @@ if test -z $#;
                                                 /bin/echo "Utilisateur existant"
                                         else
                                                 #Creation de l'utilisateur dans /var/user
-                                                /bin/echo "signaling=fxo_ks" >> /var/user/dahdi_$1.conf
-                                                /bin/echo "callerid=combinet <$4>" >> /var/user/dahdi_$1.conf
-                                                /bin/echo "echocancel=yes" >> /var/user/dahdi_$1.conf
+                                                #/bin/echo "signaling=fxo_ks" >> /var/user/dahdi_$1.conf
+                                                #/bin/echo "callerid=combinet <$4>" >> /var/user/dahdi_$1.conf
+                                                #/bin/echo "echocancel=yes" >> /var/user/dahdi_$1.conf
+                                                /bin/echo "[$9]" >> /var/user/dahdi_$1.conf
+                                                /bin/echo "echocancel = yes" >> /var/user/dahdi_$1.conf
+                                                /bin/echo "transfer = yes" >> /var/user/dahdi_$1.conf
+                                                /bin/echo "context = phones" >> /var/user/dahdi_$1.conf
+                                                /bin/echo "callerid = $1 <$4>" >> /var/user/dahdi_$1.conf
+                                                /bin/echo "mailbox = $3" >> /var/user/dahdi_$1.conf
+
 
                                                 if [ -z "$chan" ];
 
                                                         then 
                                                                 /bin/echo "group=$6" >> /var/user/dahdi_$1.conf
                                                                 /bin/echo "channel=$6" >> /var/user/dahdi_$1.conf
+                                                                /bin/echo "dahdichan=$6" >> /var/user/dahdi_$1.conf
                                                 else
                                                                      /bin/echo "Ce Port est occupé";
                                                 fi
