@@ -80,7 +80,7 @@ if test -z $#;
                                                 #Creation du dialplan
                                                 /bin/echo "[$9]" >> /var/dialplan/dahdi_$9.conf
                                                 /bin/echo " " >> /var/dialplan/dahdi_$9.conf
-                                                /bin/echo "exten => $4,1,Dial(dahdi/2/30)" >> /var/dialplan/dahdi_$9.conf
+                                                /bin/echo "exten => $4,1,Dial(dahdi/$6/30)" >> /var/dialplan/dahdi_$9.conf
                                                 /bin/echo "#include \"/var/dialplan/dahdi_$9.conf\"" >> /etc/asterisk/extensions.conf
 
                                                 #Ajout du mail
@@ -99,10 +99,10 @@ if test -z $#;
                                                 #/bin/echo "signaling=fxo_ks" >> /var/user/dahdi_$1.conf
                                                 #/bin/echo "callerid=combinet <$4>" >> /var/user/dahdi_$1.conf
                                                 #/bin/echo "echocancel=yes" >> /var/user/dahdi_$1.conf
-                                                /bin/echo "[$9]" >> /var/user/dahdi_$1.conf
+                                                /bin/echo "[$1]" >> /var/user/dahdi_$1.conf
                                                 /bin/echo "echocancel = yes" >> /var/user/dahdi_$1.conf
                                                 /bin/echo "transfer = yes" >> /var/user/dahdi_$1.conf
-                                                /bin/echo "context = phones" >> /var/user/dahdi_$1.conf
+                                                /bin/echo "context = $9" >> /var/user/dahdi_$1.conf
                                                 /bin/echo "callerid = $1 <$4>" >> /var/user/dahdi_$1.conf
                                                 /bin/echo "mailbox = $3" >> /var/user/dahdi_$1.conf
 
@@ -116,7 +116,7 @@ if test -z $#;
                                                 else
                                                                      /bin/echo "Ce Port est occupé";
                                                 fi
-												/bin/echo "#include \"/var/dialplan/dahdi_$1.conf\"" >> /etc/asterisk/chan_dahdi.conf
+												/bin/echo "#include \"/var/user/dahdi_$1.conf\"" >> /etc/asterisk/chan_dahdi.conf
                                 fi
 
                         else
@@ -127,4 +127,4 @@ fi
 #Redemarrage des services asterisk
 asterisk -rx "dialplan reload"
 asterisk -rx "sip reload"
-asterisk -rx "dahdi reload"
+asterisk -rx "dahdi restart"
