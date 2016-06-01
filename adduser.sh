@@ -88,7 +88,7 @@ if test -z $#;
                                                 /bin/echo "$4 => $2,$1,$3" >> /etc/asterisk/voicemail.conf
                                 fi
 
-                                chan=`grep -h "channel=$6" "/var/user/dahdi_*.conf"`
+                                chan=`grep -h "channel=$6" "/var/user/*.conf"`
 
                                 if ( find /var/user/$1.conf )
                                         then
