@@ -31,23 +31,23 @@ if test -z $#;
                                         then
                                                 #Ajout du dialplan
                                                 /bin/echo "Plan d'appels existants"
-                                                /bin/echo "exten => $4,1,Macro(voicemail,$1)" >> /var/dialplan/$9.conf
+                                                /bin/echo "exten => $4,1,Macro(voicemail,$1)    ;----$1----" >> /var/dialplan/$9.conf
 
                                                 #Ajout du mail
-                                                /bin/echo "[$9]" >> /etc/asterisk/voicemail.conf
-                                                /bin/echo "$4 => $2,$1,$3" >> /etc/asterisk/voicemail.conf
+                                                /bin/echo "[$9]    ;----$1----" >> /etc/asterisk/voicemail.conf
+                                                /bin/echo "$4 => $2,$1,$3    ;----$1----" >> /etc/asterisk/voicemail.conf
                                         else
                                                 #Creation du dialplan
-                                                /bin/echo "[$9]" >> /var/dialplan/$9.conf
-                                                /bin/echo "#include \"/var/dialplan/macro.conf\"" >> /var/dialplan/$9.conf
-                                                /bin/echo "include => macro-voicemail" >> /var/dialplan/$9.conf
-                                                /bin/echo " " >> /var/dialplan/$9.conf
-                                                /bin/echo "exten => $4,1,Macro(voicemail,$1)" >> /var/dialplan/$9.conf
-                                                /bin/echo "#include \"/var/dialplan/$9.conf\"" >> /etc/asterisk/extensions.conf
+                                                /bin/echo "[$9]    ;----$1----" >> /var/dialplan/$9.conf
+                                                /bin/echo "#include \"/var/dialplan/macro.conf\"    ;----$1----" >> /var/dialplan/$9.conf
+                                                /bin/echo "include => macro-voicemail    ;----$1----" >> /var/dialplan/$9.conf
+                                                /bin/echo "     ;----$1----" >> /var/dialplan/$9.conf
+                                                /bin/echo "exten => $4,1,Macro(voicemail,$1)    ;----$1----" >> /var/dialplan/$9.conf
+                                                /bin/echo "#include \"/var/dialplan/$9.conf\"    ;----$1----" >> /etc/asterisk/extensions.conf
 
                                                 #Ajout du mail
-                                                /bin/echo "[$9]" >> /etc/asterisk/voicemail.conf
-                                                /bin/echo "$4 => $2,$1,$3" >> /etc/asterisk/voicemail.conf
+                                                /bin/echo "[$9]    ;----$1----" >> /etc/asterisk/voicemail.conf
+                                                /bin/echo "$4 => $2,$1,$3    ;----$1----" >> /etc/asterisk/voicemail.conf
                                 fi
 
                                 if ( find /var/user/$1.conf 2>/dev/null )
@@ -56,13 +56,13 @@ if test -z $#;
                                                 /bin/echo "Utilisateur existant"
                                         else
                                                 #Creation de l'utilisateur dans /var/user
-                                                /bin/echo "[$1]" >> /var/user/$1.conf
-                                                /bin/echo "type=friend" >> /var/user/$1.conf
-                                                /bin/echo "secret=$2" >> /var/user/$1.conf
-                                                /bin/echo "context=$9" >> /var/user/$1.conf
-                                                /bin/echo "username=$1" >> /var/user/$1.conf
-                                                /bin/echo "host=dynamic" >> /var/user/$1.conf
-                                                /bin/echo "#include \"/var/user/$1.conf\"" >> /etc/asterisk/sip.conf
+                                                /bin/echo "[$1]    ;----$1----" >> /var/user/$1.conf
+                                                /bin/echo "type=friend    ;----$1----" >> /var/user/$1.conf
+                                                /bin/echo "secret=$2    ;----$1----" >> /var/user/$1.conf
+                                                /bin/echo "context=$9    ;----$1----" >> /var/user/$1.conf
+                                                /bin/echo "username=$1    ;----$1----" >> /var/user/$1.conf
+                                                /bin/echo "host=dynamic    ;----$1----" >> /var/user/$1.conf
+                                                /bin/echo "#include \"/var/user/$1.conf\"    ;----$1----" >> /etc/asterisk/sip.conf
                                 fi
                         
                         elif [ $5 = 'DAHDI' ]
@@ -71,21 +71,21 @@ if test -z $#;
                                         then
                                                 #Ajout du dialplan
                                                 /bin/echo "Plan d'appels existants"
-                                                /bin/echo "exten => $4,1,Dial(dahdi/2/30)" >> /var/dialplan/$9.conf
+                                                /bin/echo "exten => $4,1,Dial(dahdi/2/30)    ;----$1----" >> /var/dialplan/$9.conf
 
                                                 #Ajout du mail
-                                                /bin/echo "[$9]" >> /etc/asterisk/voicemail.conf
-                                                /bin/echo "$4 => $2,$1,$3" >> /etc/asterisk/voicemail.conf
+                                                /bin/echo "[$9]    ;----$1----" >> /etc/asterisk/voicemail.conf
+                                                /bin/echo "$4 => $2,$1,$3    ;----$1----" >> /etc/asterisk/voicemail.conf
                                         else
                                                 #Creation du dialplan
-                                                /bin/echo "[$9]" >> /var/dialplan/$9.conf
-                                                /bin/echo " " >> /var/dialplan/$9.conf
-                                                /bin/echo "exten => $4,1,Dial(dahdi/$6/30)" >> /var/dialplan/$9.conf
-                                                /bin/echo "#include \"/var/dialplan/$9.conf\"" >> /etc/asterisk/extensions.conf
+                                                /bin/echo "[$9]    ;----$1----" >> /var/dialplan/$9.conf
+                                                /bin/echo "     ;----$1----" >> /var/dialplan/$9.conf
+                                                /bin/echo "exten => $4,1,Dial(dahdi/$6/30)    ;----$1----" >> /var/dialplan/$9.conf
+                                                /bin/echo "#include \"/var/dialplan/$9.conf\"    ;----$1----" >> /etc/asterisk/extensions.conf
 
                                                 #Ajout du mail
-                                                /bin/echo "[$9]" >> /etc/asterisk/voicemail.conf
-                                                /bin/echo "$4 => $2,$1,$3" >> /etc/asterisk/voicemail.conf
+                                                /bin/echo "[$9]    ;----$1----" >> /etc/asterisk/voicemail.conf
+                                                /bin/echo "$4 => $2,$1,$3    ;----$1----" >> /etc/asterisk/voicemail.conf
                                 fi
 
                                 chan=`grep -h "channel=$6" "/var/user/*.conf"`
@@ -95,26 +95,27 @@ if test -z $#;
                                                 #Message pour indiquer le groupe
                                                 /bin/echo "Utilisateur existant"
                                         else
-                                                #Creation de l'utilisateur dans /var/user
-                                                #/bin/echo "signaling=fxo_ks" >> /var/user/$1.conf
-                                                #/bin/echo "callerid=combinet <$4>" >> /var/user/$1.conf
-                                                #/bin/echo "echocancel=yes" >> /var/user/$1.conf
-                                                /bin/echo "[$1]" >> /var/user/$1.conf
-                                                /bin/echo "echocancel = yes" >> /var/user/$1.conf
-                                                /bin/echo "transfer = yes" >> /var/user/$1.conf
-                                                /bin/echo "context = $9" >> /var/user/$1.conf
-                                                /bin/echo "callerid = $1 <$4>" >> /var/user/$1.conf
-                                                /bin/echo "mailbox = $3" >> /var/user/$1.conf
-
-
+                                                
                                                 if [ -z "$chan" ];
 
                                                         then 
-                                                                /bin/echo "group=$6" >> /var/user/$1.conf
-                                                                /bin/echo "channel=$6" >> /var/user/$1.conf
-                                                                /bin/echo "dahdichan=$6" >> /var/user/$1.conf
+                                                                #Creation de l'utilisateur dans /var/user
+                                                                #/bin/echo "signaling=fxo_ks" >> /var/user/$1.conf
+                                                                #/bin/echo "callerid=combinet <$4>" >> /var/user/$1.conf
+                                                                #/bin/echo "echocancel=yes" >> /var/user/$1.conf
+                                                                /bin/echo "[$1]    ;----$1----" >> /var/user/$1.conf
+                                                                /bin/echo "echocancel = yes    ;----$1----" >> /var/user/$1.conf
+                                                                /bin/echo "group=$6    ;----$1----" >> /var/user/$1.conf
+                                                                /bin/echo "transfer = yes    ;----$1----" >> /var/user/$1.conf
+                                                                /bin/echo "context = $9    ;----$1----" >> /var/user/$1.conf
+                                                                /bin/echo "channel=$6    ;----$1----" >> /var/user/$1.conf
+                                                                /bin/echo "dahdichan=$6    ;----$1----" >> /var/user/$1.conf
+                                                                /bin/echo "callerid = $1 <$4>    ;----$1----" >> /var/user/$1.conf
+                                                                /bin/echo "mailbox = $3    ;----$1----" >> /var/user/$1.conf
                                                 else
                                                                      /bin/echo "Ce Port est occupé";
+                                                                     /bin/rm /var/user/$1.conf
+                                                                     /bin/rm /var/dialplan/$1.conf
                                                 fi
 												/bin/echo "#include \"/var/user/$1.conf\"" >> /etc/asterisk/chan_dahdi.conf
                                 fi

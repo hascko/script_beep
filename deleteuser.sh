@@ -25,6 +25,19 @@ if test -z $#;
 	                sed /$1/d /var/dialplan/$2.conf > /var/tmp/temp
 	                mv /var/tmp/temp /var/dialplan/$2.conf
 
+                    chan=`test -s /var/dialplan/$2.conf`
+                    
+                    if [ -z "$chan" ];
+                    
+                        then 
+                               rm /var/dialplan/$2.conf
+                        else
+                              /bin/echo "Dialplan supprimé"
+                        fi
+
+                    #Affichage
+                    /bin/echo "Dialplan supprimé"
+
 	                #Suppression de l'utilisateur
 	                rm /var/user/$1.conf
 
@@ -32,7 +45,15 @@ if test -z $#;
                     sed /$1/d /etc/asterisk/sip.conf > /var/tmp/temp
                     mv /var/tmp/temp /etc/asterisk/sip.conf
 
-                    #Suppression dqns Voice;ail
+                    #Suppression dqns extensions
+                    sed /$2/d /etc/asterisk/extensions.conf > /var/tmp/temp
+                    mv /var/tmp/temp /etc/asterisk/extensions.conf
+
+                    #Suppression dqns Chan_dahdi
+                    sed /$1/d /etc/asterisk/chan_dahdi.conf > /var/tmp/temp
+                    mv /var/tmp/temp /etc/asterisk/chan_dahdi.conf
+
+                    #Suppression dqns Voicemail
                     sed /$1/d /etc/asterisk/voicemail.conf > /var/tmp/temp
                     mv /var/tmp/temp /etc/asterisk/voicemail.conf
 	            else
