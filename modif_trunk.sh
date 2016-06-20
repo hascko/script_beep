@@ -6,7 +6,8 @@ mdp=$2
 verif=`grep -w -n "\;$compte" /var/user/general.conf | cut -d":" -f1`
 let verif++
 host=`grep -w "register => $compte" /var/user/general.conf | cut -d"@" -f2`
-sed ""$verif"c register => $compte:$mdp@$host" /var/user/general.conf > fichier.tmp && mv -f fichier.tmp /var/user/general.conf; rm -f fichier.tmp
+port=`grep -w "register => $compte" /var/user/general.conf | cut -d":" -f3`
+sed ""$verif"c register => $compte:$mdp@$host:$port" /var/user/general.conf > fichier.tmp && mv -f fichier.tmp /var/user/general.conf; rm -f fichier.tmp
 
 verif2=`grep -w -n "username=$compte" /var/user/ippi.conf | cut -d":" -f1`
 let verif2++
