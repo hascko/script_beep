@@ -27,3 +27,4 @@ else{
         print "c pas bon";
 }
 
+system 'asterisk -rx "dialplan reload"'

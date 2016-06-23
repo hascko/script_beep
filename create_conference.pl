@@ -72,3 +72,5 @@ elsif($size == 2){
 else{
         print "Indiquez le numéro de conférence et/ou le mot de passe\n";
 }
+
+system 'asterisk -rx "dialplan reload"'

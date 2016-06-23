@@ -19,3 +19,5 @@ if($argv == 2){
 else{
         print "c pas bon";
 }
+
+system 'asterisk -rx "dialplan reload"'

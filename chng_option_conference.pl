@@ -4,6 +4,7 @@ use Tie::File;
 # 1 - Pour Activer Musique Pour conference
 # 2 - Pour Activer Que TalkOnly Pour conference
 # 3 - Pour Activer Musique et TalkOnly Pour conference
+# 4 - Pour Activer RIEN Pour conference
 my @records;
 tie @records, 'Tie::File',"/var/dialplan/conference.conf";
 my $records = @records;
@@ -40,7 +41,18 @@ if($argv == 2){
                       }
                 }
         }
+		elsif($ARGV[1] == 4){
+
+			for(my $i = 0; $i <= $records; $i++){
+					if($records[$i] =~ m/exten => $arg[\s,]/){
+							$records[$i] = "exten => $arg,1,MeetMe($arg)";
+							print "Changer\n";
+				  }
+			}
+		}
 }
 else{
         print "c pas bon";
 }
+
+system 'asterisk -rx "dialplan reload"'
