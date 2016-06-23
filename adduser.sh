@@ -128,4 +128,3 @@ fi
 #Redemarrage des services asterisk
 asterisk -rx "dialplan reload"
 asterisk -rx "sip reload"
-asterisk -rx "dahdi restart"
