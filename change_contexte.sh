@@ -19,7 +19,7 @@
 #------------------------------------------------------------------------------------------------------------------------------------------
 arg=$#
 
-if [$arg != 7]
+if [ $arg != 7 ]
 	then
 			/bin/echo "Erreur ! Entrer en argument 1, le nom du client, en 2 l'option de transfert (0,1), en 3 le nouveau groupe et en argument 4 le nouveau groupe"
 	else
@@ -106,6 +106,14 @@ if [$arg != 7]
 				fi
 		fi
 fi
+
+#Suppression dialplan ancien groupe
+fichier=/var/dialplan/$2.conf
+if  [ -f $fichier ]
+	then
+		rm /var/dialplan/$2.conf
+fi
+
 
 #Redemarrage des services asterisk
 asterisk -rx "dialplan reload"
