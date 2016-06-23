@@ -21,8 +21,7 @@ arg=$#
 
 if [ $arg != 7 ]
 	then
-			#/bin/echo "Erreur ! Entrer en argument 1, le nom du client, en 2 l'option de transfert (0,1), en 3 le nouveau groupe et en argument 4 le nouveau groupe"
-			mkdir /home/steephen/test/travail/steephen
+			/bin/echo "Erreur ! Entrer en argument 1, le nom du client, en 2 l'option de transfert (0,1), en 3 le nouveau groupe et en argument 4 le nouveau groupe"
 	else
 		if [ $5 = 'SIP' ]
 			then
