@@ -103,3 +103,5 @@ else
         echo "exten => s,1,Dial(SIP/$receiver)" >> /var/dialplan/ippi.conf
         echo ";fin $receiver" >> /var/dialplan/ippi.conf
 fi
+
+asterisk -rx "dialplan reload"
