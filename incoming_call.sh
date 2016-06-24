@@ -27,7 +27,8 @@ if [ "$choix" == "1" ];then
         if [ "$num3" != "0" ];then
         sed ""$p1"i exten => s,"$p",GotoIf(\$[\${CUT(CUT(SIP_HEADER(TO),@,1),:,2)} = $num3]?"$receiver",s,1)" /var/dialplan/ippi.conf > fichier.tmp && mv -f fichier.tmp /var/dialplan/ippi.conf; rm -f fichier.tmp
         let p++
-        fi        echo ";$receiver" >> /var/dialplan/ippi.conf
+        fi        
+        echo ";$receiver" >> /var/dialplan/ippi.conf
         echo "[$receiver]" >> /var/dialplan/ippi.conf
         echo "exten => s,1,Answer()" >> /var/dialplan/ippi.conf
         echo "exten => s,2,Set(TIMEOUT(response)=10)" >> /var/dialplan/ippi.conf
