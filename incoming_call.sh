@@ -16,7 +16,7 @@ p=$((p1 - p2))
 if [ "$choix" == "1" ];then
         #l'admin a choisi un svi
         echo $p
-        if [ "$num1" != "0" ];then
+        if [ "$num3" != "0" ];then
         sed ""$p1"i exten => s,"$p",GotoIf(\$[\${CUT(CUT(SIP_HEADER(TO),@,1),:,2)} = $num1]?"$receiver",s,1)" /var/dialplan/ippi.conf > fichier.tmp && mv -f fichier.tmp /var/dialplan/ippi.conf; rm -f fichier.tmp
         let p++
         fi
@@ -24,7 +24,7 @@ if [ "$choix" == "1" ];then
         sed ""$p1"i exten => s,"$p",GotoIf(\$[\${CUT(CUT(SIP_HEADER(TO),@,1),:,2)} = $num2]?"$receiver",s,1)" /var/dialplan/ippi.conf > fichier.tmp && mv -f fichier.tmp /var/dialplan/ippi.conf; rm -f fichier.tmp
         let p++
         fi
-        if [ "$num3" != "0" ];then
+        if [ "$num1" != "0" ];then
         sed ""$p1"i exten => s,"$p",GotoIf(\$[\${CUT(CUT(SIP_HEADER(TO),@,1),:,2)} = $num3]?"$receiver",s,1)" /var/dialplan/ippi.conf > fichier.tmp && mv -f fichier.tmp /var/dialplan/ippi.conf; rm -f fichier.tmp
         let p++
         fi        
@@ -89,7 +89,18 @@ if [ "$choix" == "1" ];then
 elif [ "$choix" == "2" ];then
         #l'admin a choisi le standard
         echo $p
+        if [ "$num3" != "0" ];then
         sed ""$p1"i exten => s,"$p",GotoIf(\$[\${CUT(CUT(SIP_HEADER(TO),@,1),:,2)} = $num1]?"$receiver",s,1)" /var/dialplan/ippi.conf > fichier.tmp && mv -f fichier.tmp /var/dialplan/ippi.conf; rm -f fichier.tmp
+        let p++
+        fi
+        if [ "$num2" != "0" ];then
+        sed ""$p1"i exten => s,"$p",GotoIf(\$[\${CUT(CUT(SIP_HEADER(TO),@,1),:,2)} = $num2]?"$receiver",s,1)" /var/dialplan/ippi.conf > fichier.tmp && mv -f fichier.tmp /var/dialplan/ippi.conf; rm -f fichier.tmp
+        let p++
+        fi
+        if [ "$num1" != "0" ];then
+        sed ""$p1"i exten => s,"$p",GotoIf(\$[\${CUT(CUT(SIP_HEADER(TO),@,1),:,2)} = $num3]?"$receiver",s,1)" /var/dialplan/ippi.conf > fichier.tmp && mv -f fichier.tmp /var/dialplan/ippi.conf; rm -f fichier.tmp
+        let p++
+        fi
         echo ";$receiver" >> /var/dialplan/ippi.conf
         echo "[$receiver]" >> /var/dialplan/ippi.conf
         echo "exten => s,1,Dial(SIP/$receiver)" >> /var/dialplan/ippi.conf
@@ -98,7 +109,18 @@ elif [ "$choix" == "2" ];then
 else
         #l'admin a choisi un utilisateur
         echo $p
+        if [ "$num3" != "0" ];then
+        sed ""$p1"i exten => s,"$p",GotoIf(\$[\${CUT(CUT(SIP_HEADER(TO),@,1),:,2)} = $num3]?"$receiver",s,1)" /var/dialplan/ippi.conf > fichier.tmp && mv -f fichier.tmp /var/dialplan/ippi.conf; rm -f fichier.tmp
+        let p++
+        fi
+        if [ "$num2" != "0" ];then
+        sed ""$p1"i exten => s,"$p",GotoIf(\$[\${CUT(CUT(SIP_HEADER(TO),@,1),:,2)} = $num2]?"$receiver",s,1)" /var/dialplan/ippi.conf > fichier.tmp && mv -f fichier.tmp /var/dialplan/ippi.conf; rm -f fichier.tmp
+        let p++
+        fi
+        if [ "$num1" != "0" ];then
         sed ""$p1"i exten => s,"$p",GotoIf(\$[\${CUT(CUT(SIP_HEADER(TO),@,1),:,2)} = $num1]?"$receiver",s,1)" /var/dialplan/ippi.conf > fichier.tmp && mv -f fichier.tmp /var/dialplan/ippi.conf; rm -f fichier.tmp
+        let p++
+        fi
         echo ";$receiver" >> /var/dialplan/ippi.conf
         echo "[$receiver]" >> /var/dialplan/ippi.conf
         echo "exten => s,1,Dial(SIP/$receiver)" >> /var/dialplan/ippi.conf
