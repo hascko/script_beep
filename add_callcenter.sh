@@ -16,3 +16,4 @@ echo "same => n,Hangup()" >> /var/dialplan/callcenter.conf
 echo ";fin $nom_call" >> /var/dialplan/callcenter.conf
 
 asterisk -rx "module reload app_queue.so"
+asterisk -rx "dialplan reload"
