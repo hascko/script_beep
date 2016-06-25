@@ -5,7 +5,7 @@ strategy=$2
 numero_call=$3
 
 echo ";$nom_call" >> /etc/asterisk/queues.conf
-echo "[$nom_call]" >> /etc/asterisk/queues.conf
+echo "[$nom_call](StandardQueue)" >> /etc/asterisk/queues.conf
 echo "strategy=$strategy" >> /etc/asterisk/queues.conf
 echo ";fin $nom_call" >> /etc/asterisk/queues.conf
 
