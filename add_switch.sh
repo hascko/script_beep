@@ -15,6 +15,13 @@ else
         verif=`grep -w -n "\[$groupe\]" /var/dialplan/extern.conf | cut -d":" -f1`
         let verif++
         sed ""$verif"i exten => _"$switch".,1,Dial(SIP/outgoing_"$compte"_"$host"_"$port"/\${EXTEN}) ;$groupe" /var/dialplan/extern.conf > fichier.tmp && mv -f fichier.tmp /var/dialplan/extern.conf; rm -f fichier.tmp
+
+        verif2=`grep -w "\;$groupe" /var/dialplan/extern.conf`
+
+        if [ -z "$verif2" ];then
+	        verif=$((verif - 1))
+	        sed ""$verif"a exten => _"$switch".,1,Dial(SIP/outgoing_"$compte"_"$host"_"$port"/\${EXTEN}) ;$groupe" /var/dialplan/extern.conf > fichier.tmp && mv -f fichier.tmp /var/dialplan/extern.conf; rm -f fichier.tmp
+        fi
 fi
 
 asterisk -rx "dialplan reload"
