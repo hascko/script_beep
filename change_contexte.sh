@@ -108,11 +108,11 @@ if [ $arg != 7 ]
 fi
 
 #Suppression dialplan ancien groupe
-fichier='/var/dialplan/$2.conf'
-if  [ -e$fichier ]
-	then
+#fichier='/var/dialplan/$2.conf'
+#if  [ -e $fichier ]
+#	then
 		rm /var/dialplan/$2.conf
-fi
+#fi
 
 
 #Redemarrage des services asterisk
