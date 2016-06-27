@@ -6,7 +6,7 @@ if test -z $#;
         else
 				test=`grep -w ";----$1----" /var/dialplan/$2.conf`
 				sed -i -e "/;----$1----/d" /var/dialplan/$2.conf
-				echo $test >> /var/dialplan/default.conf
+				echo $test >> /var/dialplan/$3.conf
 				
 				#Suppression de la ligne du groupe
 				sed '/context/d' /var/user/$1.conf > /var/tmp/temp
