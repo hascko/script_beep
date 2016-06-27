@@ -39,11 +39,16 @@ if test -z $#;
                                         else
                                                 #Creation du dialplan
                                                 /bin/echo "[$9]    ;----$1----" >> /var/dialplan/$9.conf
+                                                /bin/echo "#include \"/var/dialplan/conference.conf\"    ;----$1----" >> /var/dialplan/$9.conf
                                                 /bin/echo "#include \"/var/dialplan/macro.conf\"    ;----$1----" >> /var/dialplan/$9.conf
                                                 /bin/echo "include => macro-voicemail    ;----$1----" >> /var/dialplan/$9.conf
-                                                /bin/echo " " >> /var/dialplan/$9.conf
-                                                /bin/echo "exten => $4,1,Macro(voicemail,$1)    ;----$1----" >> /var/dialplan/$9.conf
                                                 /bin/echo "include => standard1    ;----$1----" >> /var/dialplan/$9.conf
+                                                /bin/echo "include => macro-conference_mdp    ;----$1----" >> /var/dialplan/$9.conf
+                                                /bin/echo "include => macro-conference_smdp    ;----$1----" >> /var/dialplan/$9.conf
+                                                /bin/echo "include => macro-conference_mdpt    ;----$1----" >> /var/dialplan/$9.conf
+                                                /bin/echo "include => macro-conference_smdpt    ;----$1----" >> /var/dialplan/$9.conf
+												/bin/echo "     ;----$1----" >> /var/dialplan/$9.conf
+												/bin/echo "exten => $4,1,Macro(voicemail,$1)    ;----$1----" >> /var/dialplan/$9.conf
                                                 /bin/echo "#include \"/var/dialplan/$9.conf\"    ;----$1----" >> /etc/asterisk/extensions.conf
 
                                                 #Ajout du mail
@@ -72,7 +77,7 @@ if test -z $#;
                                         then
                                                 #Ajout du dialplan
                                                 /bin/echo "Plan d'appels existants"
-                                                /bin/echo "exten => $4,1,Dial(dahdi/$6/30)    ;----$1----" >> /var/dialplan/$9.conf
+                                                /bin/echo "exten => $4,1,Dial(dahdi/2/30)    ;----$1----" >> /var/dialplan/$9.conf
 
                                                 #Ajout du mail
                                                 /bin/echo "[$9]    ;----$1----" >> /etc/asterisk/voicemail.conf
@@ -80,9 +85,14 @@ if test -z $#;
                                         else
                                                 #Creation du dialplan
                                                 /bin/echo "[$9]    ;----$1----" >> /var/dialplan/$9.conf
-                                                /bin/echo " " >> /var/dialplan/$9.conf
-                                                /bin/echo "exten => $4,1,Dial(dahdi/$6/30)    ;----$1----" >> /var/dialplan/$9.conf
+												/bin/echo "#include \"/var/dialplan/conference.conf\"    ;----$1----" >> /var/dialplan/$9.conf
+                                                /bin/echo "     ;----$1----" >> /var/dialplan/$9.conf
+												/bin/echo "include => macro-conference_mdp    ;----$1----" >> /var/dialplan/$9.conf
+                                                /bin/echo "include => macro-conference_smdp    ;----$1----" >> /var/dialplan/$9.conf
+                                                /bin/echo "include => macro-conference_mdpt    ;----$1----" >> /var/dialplan/$9.conf
+                                                /bin/echo "include => macro-conference_smdpt    ;----$1----" >> /var/dialplan/$9.conf
 												/bin/echo "include => standard1    ;----$1----" >> /var/dialplan/$9.conf
+                                                /bin/echo "exten => $4,1,Dial(dahdi/$6/30)    ;----$1----" >> /var/dialplan/$9.conf
                                                 /bin/echo "#include \"/var/dialplan/$9.conf\"    ;----$1----" >> /etc/asterisk/extensions.conf
 
                                                 #Ajout du mail
@@ -92,7 +102,7 @@ if test -z $#;
 
                                 chan=`grep -h "channel=$6" "/var/user/*.conf"`
 
-                                if ( find /var/user/$1.conf 2>/dev/null )
+                                if ( find /var/user/$1.conf )
                                         then
                                                 #Message pour indiquer le groupe
                                                 /bin/echo "Utilisateur existant"
@@ -119,7 +129,7 @@ if test -z $#;
                                                                      /bin/rm /var/user/$1.conf
                                                                      /bin/rm /var/dialplan/$1.conf
                                                 fi
-												/bin/echo "#include \"/var/user/$1.conf\"    ;----$1----" >> /etc/asterisk/chan_dahdi.conf
+												/bin/echo "#include \"/var/user/$1.conf\"" >> /etc/asterisk/chan_dahdi.conf
                                 fi
 
                         else
