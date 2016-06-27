@@ -2,9 +2,8 @@
 
 nom_groupe_extern=$1
 
-switchs=`grep -w "\;$nom_groupe_extern" /var/dialplan/extern.conf`
+switchs=`grep -w "exten" /var/dialplan/$nom_groupe_extern.conf`
 echo $switchs > file.tmp
-sed -i -e "s/$nom_groupe_extern//g" file.tmp
 
 set -a tableau
 part="depart"
@@ -21,16 +20,13 @@ done
 
 taille=${#tableau[@]}
 i=0
-verif=`grep -w -n "\[default\]" /var/dialplan/extern.conf | cut -d":" -f1`
-let verif++
 
 while [ "$taille" -gt "$i" ]
 do
-sed ""$verif"i ${tableau[$i]}" /var/dialplan/extern.conf > fichier.tmp && mv -f fichier.tmp /var/dialplan/extern.conf; rm -f fichier.tmp
+echo  ${tableau[$i]} >> /var/dialplan/default_extern.conf
 let i++
 done
 
-sed -i "/\;$nom_groupe_extern/d" /var/dialplan/extern.conf
-sed -i "/\[$nom_groupe_extern\]/d" /var/dialplan/extern.conf
+sed -i "/exten/d" /var/dialplan/$nom_groupe_extern.conf
 
 asterisk -rx "dialplan reload"
