@@ -22,6 +22,11 @@ arg=$#
 if [ $arg != 7 ]
 	then
 			/bin/echo "Erreur ! Entrer en argument 1, le nom du client, en 2 l'option de transfert (0,1), en 3 le nouveau groupe et en argument 4 le nouveau groupe"
+else if [ $arg == 2]
+		then
+			rm /var/dialplan/$1.conf
+		fi
+			
 	else
 		if [ $5 = 'SIP' ]
 			then
@@ -111,7 +116,7 @@ fi
 #fichier='/var/dialplan/$2.conf'
 #if  [ -e $fichier ]
 #	then
-		rm /var/dialplan/$2.conf
+		
 #fi
 
 
