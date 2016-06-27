@@ -4,11 +4,13 @@ use Tie::File;
 # 1 - Pour Activer Musique et TalkOnly Pour conference MDP
 # 2 - Pour Activer Que TalkOnly Pour conference MDP
 # 3 - Pour Activer Que Musique Pour conference MDP
-# 4 - Pour Activer Musique et TalkOnly Pour conference SMDP
-# 5 - Pour Activer Que TalkOnly Pour conference MDP
-# 6 - Pour Activer Que Musique Pour conference MDP
+# 4 - Pour Activer RIEN Pour conference MDP
+# 6 - Pour Activer Musique et TalkOnly Pour conference SMDP
+# 6 - Pour Activer Que TalkOnly Pour conference MDP
+# 7 - Pour Activer Que Musique Pour conference MDP
+# 8 - Pour Activer RIEN Pour conference SMDP
 my @records;
-tie @records, 'Tie::File',"conference.conf";
+tie @records, 'Tie::File',"/var/dialplan/conference.conf";
 my $records = @records;
 my $argv = @ARGV;
 
@@ -39,11 +41,20 @@ else{
                         if($records[$i] =~ m/\[macro-conference_mdpt\]/){
                                 my $x = $i + 2;
                                 $records[$x] = "exten => s,n,MeetMe(770,cMI)";
-                                print "Seule l'option musique viens d'etre active pour conference mot de passe\n";
-                        }
+ print "Seule l'option musique viens d'etre active pour conference mot de passe\n";
+                         }
                 }
         }
         elsif($ARGV[0] == 4){
+                for(my $i = 0; $i < $records; $i++){
+                        if($records[$i] =~ m/\[macro-conference_mdpt\]/){
+                                my $x = $i + 2;
+                                $records[$x] = "exten => s,n,MeetMe(770,cI)";
+                                print "Seule RIEN viens d'etre active pour conference mot de passe\n";
+                        }
+                }
+        }
+        elsif($ARGV[0] == 5){
                 for(my $i = 0; $i < $records; $i++){
                         if($records[$i] =~ m/\[macro-conference_smdpt\]/){
                                 my $x = $i + 2;
@@ -52,7 +63,7 @@ else{
                         }
                 }
         }
-        elsif($ARGV[0] == 5){
+        elsif($ARGV[0] == 6){
                 for(my $i = 0; $i < $records; $i++){
                         if($records[$i] =~ m/\[macro-conference_smdpt\]/){
                                 my $x = $i + 2;
@@ -61,7 +72,7 @@ else{
                         }
                 }
         }
-        elsif($ARGV[0] == 6){
+        elsif($ARGV[0] == 7){
                 for(my $i = 0; $i < $records; $i++){
                         if($records[$i] =~ m/\[macro-conference_smdpt\]/){
                                 my $x = $i + 2;
@@ -70,7 +81,19 @@ else{
                         }
                 }
         }
+        elsif($ARGV[0] == 8){
+                for(my $i = 0; $i < $records; $i++){
+                        if($records[$i] =~ m/\[macro-conference_smdpt\]/){
+                                my $x = $i + 2;
+                                $records[$x] = "exten => s,n,MeetMe(790,cI)";
+                                print "Les options RIEN viens d'etre active pour conference sans mot de passe\n";
+                        }
+                }
+        }
         else{
                 print "Cette option n'existe pas\n";
         }
 }
+
+system 'asterisk -rx "dialplan reload"'
+                                                                     

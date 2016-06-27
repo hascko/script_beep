@@ -1,10 +1,10 @@
 #!/bin/bash
 
-user=$1
+compte=$1
+host=$2
+port=$3
 
-sed -i "/\;$user/,/\;fin $user/d" /var/user/general.conf
-sed -i "/\;$user/,/\;fin $user/d" /var/dialplan/ippi.conf
-sed -i "/\;$user/,/\;fin $user/d" /var/user/ippi.conf
-sed -i "/\;$user/,/\;fin $user/d" /var/dialplan/travail.conf
+sed -i "/\;$compte\_$host\_$port/,/\;fin $compte\_$host\_$port/d" /var/user/general.conf
+sed -i "/\;$compte\_$host\_$port/,/\;fin $compte\_$host\_$port/d" /var/user/ippi.conf
 
-asterisk -rx "dialplan reload"
+asterisk -rx "sip reload"

@@ -30,9 +30,9 @@ if test -z $#;
                     if [ -z "$chan" ];
                     
                         then 
-                               rm /var/dialplan/$2.conf
-                        else
                               /bin/echo "Dialplan supprimé"
+                        else
+							  rm /var/dialplan/$2.conf
                         fi
 
                     #Affichage

@@ -41,9 +41,10 @@ if test -z $#;
                                                 /bin/echo "[$9]    ;----$1----" >> /var/dialplan/$9.conf
                                                 /bin/echo "#include \"/var/dialplan/macro.conf\"    ;----$1----" >> /var/dialplan/$9.conf
                                                 /bin/echo "include => macro-voicemail    ;----$1----" >> /var/dialplan/$9.conf
-                                                /bin/echo "     ;----$1----" >> /var/dialplan/$9.conf
+                                                /bin/echo " " >> /var/dialplan/$9.conf
                                                 /bin/echo "exten => $4,1,Macro(voicemail,$1)    ;----$1----" >> /var/dialplan/$9.conf
-                                                /bin/echo "#include \"/var/dialplan/$9.conf\"" >> /etc/asterisk/extensions.conf
+                                                /bin/echo "include => standard1    ;----$1----" >> /var/dialplan/$9.conf
+                                                /bin/echo "#include \"/var/dialplan/$9.conf\"    ;----$1----" >> /etc/asterisk/extensions.conf
 
                                                 #Ajout du mail
                                                 /bin/echo "[$9]    ;----$1----" >> /etc/asterisk/voicemail.conf
@@ -79,9 +80,10 @@ if test -z $#;
                                         else
                                                 #Creation du dialplan
                                                 /bin/echo "[$9]    ;----$1----" >> /var/dialplan/$9.conf
-                                                /bin/echo "     ;----$1----" >> /var/dialplan/$9.conf
+                                                /bin/echo " " >> /var/dialplan/$9.conf
                                                 /bin/echo "exten => $4,1,Dial(dahdi/$6/30)    ;----$1----" >> /var/dialplan/$9.conf
-                                                /bin/echo "#include \"/var/dialplan/$9.conf\"" >> /etc/asterisk/extensions.conf
+												/bin/echo "include => standard1    ;----$1----" >> /var/dialplan/$9.conf
+                                                /bin/echo "#include \"/var/dialplan/$9.conf\"    ;----$1----" >> /etc/asterisk/extensions.conf
 
                                                 #Ajout du mail
                                                 /bin/echo "[$9]    ;----$1----" >> /etc/asterisk/voicemail.conf
@@ -128,4 +130,3 @@ fi
 #Redemarrage des services asterisk
 asterisk -rx "dialplan reload"
 asterisk -rx "sip reload"
-asterisk -rx "dahdi restart"

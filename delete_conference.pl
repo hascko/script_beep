@@ -63,3 +63,5 @@ elsif($res == 3){
 elsif($res == 4){
         print "Mot de passe incorrect\n";
 }
+
+system 'asterisk -rx "dialplan reload"'
