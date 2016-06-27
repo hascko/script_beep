@@ -1,7 +1,7 @@
 #!/bin/bash
 #------------------------------------------------------------------------------------------------------------------------------------------
 #BEEP
-#AJOUT D'UN UTILISATEUR
+#MODIFICATION HORIARES STANDARD
 #AUTEUR MOUGNIN SERGE
 #Date 11/05/2016
 #------------------------------------------------------------------------------------------------------------------------------------------
@@ -14,7 +14,8 @@
 #$3 : L'heure de fin
 #$4 : Les minutes de l'heure de fin
 #$5 : Le jour de début (mon, tue, wed, thu, fri, sat, sun)
-#$2 : Le jour de fin (mon, tue, wed, thu, fri, sat, sun)
+#$6 : Le jour de fin (mon, tue, wed, thu, fri, sat, sun)
+#$7 : Le nouvel utilisateur
 #------------------------------------------------------------------------------------------------------------------------------------------
 
 if test -z $#;
@@ -26,7 +27,10 @@ if test -z $#;
                 mv /var/tmp/temp /var/dialplan/standard.conf
 
                 #Réécriture de la ligne avec nos parametres
-                sed "5i exten => 123,1,GotoIfTime($1:$2-$3:$4,$5-$6,*,*?standard1,${EXTEN},1)" /var/dialplan/standard.conf > /var/tmp/temp
+                sed "5i exten => 1010,1,GotoIfTime($1:$2-$3:$4,$5-$6,*,*?standard1,\${EXTEN},1)" /var/dialplan/standard.conf > /var/tmp/temp
+                mv /var/tmp/temp /var/dialplan/standard.conf
+				
+				sed "8i exten => 1011,1,GotoIfTime($1:$2-$3:$4,$5-$6,*,*?standard1,\${EXTEN},1)" /var/dialplan/standard.conf > /var/tmp/temp
                 mv /var/tmp/temp /var/dialplan/standard.conf
 fi
 
