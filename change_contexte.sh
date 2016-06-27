@@ -109,7 +109,7 @@ fi
 
 #Suppression dialplan ancien groupe
 fichier='/var/dialplan/$2.conf'
-if  [ -f $fichier ]
+if  [ -e$fichier ]
 	then
 		rm /var/dialplan/$2.conf
 fi
