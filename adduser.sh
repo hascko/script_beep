@@ -100,8 +100,10 @@ if test -z $#;
                                                 /bin/echo "include => macro-conference_smdpt" >> /var/dialplan/$9.conf
 												/bin/echo "include => Queues" >> /var/dialplan/$9.conf
 												/bin/echo "include => standard1" >> /var/dialplan/$9.conf
-												verif=`grep -w -n "\[standard1\]" /var/dialplan/standard.conf | cut -d":" -f2`
-												/bin/echo "include => $9" >> /var/dialplan/standard.conf
+												verif=`grep -w -n "\[standard1\]" /var/dialplan/standard.conf | cut -d":" -f1`
+                                                let verif++
+                                                sed ""$verif"i include => $9" /var/dialplan/standard.conf > fichier.tmp && mv -f fichier.tmp /var/dialplan/standard.conf; rm -f fichier.tmp
+												
                                                 /bin/echo "exten => $4,1,Dial(dahdi/$6/30)    ;----$1----" >> /var/dialplan/$9.conf
                                                 /bin/echo "#include \"/var/dialplan/$9.conf\"" >> /etc/asterisk/extensions.conf
 
