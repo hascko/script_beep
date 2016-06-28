@@ -127,4 +127,4 @@ else
         echo ";fin $receiver" >> /var/dialplan/ippi.conf
 fi
 
-asterisk -rx "dialplan reload"
+asterisk -rx "reload"

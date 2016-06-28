@@ -9,4 +9,4 @@ sed "1i#include /var/dialplan/extern.conf" /var/dialplan/$context.conf > fichier
 fi
 echo "include => $extern" >> /var/dialplan/$context.conf
 
-asterisk -rx "dialplan reload"
+asterisk -rx "reload"

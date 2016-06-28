@@ -18,4 +18,4 @@ sed ""$verif"i include => $1" /var/dialplan/standard.conf > fichier.tmp && mv -f
 /bin/echo " " >> /var/dialplan/$1.conf
 /bin/echo "#include \"/var/dialplan/$1.conf\"" >> /etc/asterisk/extensions.conf
 
-asterisk -rx "dialplan reload"
+asterisk -rx "reload"

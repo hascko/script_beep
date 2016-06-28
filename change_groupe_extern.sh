@@ -29,4 +29,4 @@ done
 
 sed -i "/exten/d" /var/dialplan/$nom_groupe_extern.conf
 
-asterisk -rx "dialplan reload"
+asterisk -rx "reload"
