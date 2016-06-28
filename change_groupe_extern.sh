@@ -28,5 +28,7 @@ let i++
 done
 
 sed -i "/exten/d" /var/dialplan/$nom_groupe_extern.conf
+sed -i "/#include \"/var/dialplan/$nom_groupe_extern.conf\"/d" /etc/asterisk/extensions.conf
+rm /var/dialplan/$nom_groupe_extern.conf
 
 asterisk -rx "reload"
