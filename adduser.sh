@@ -45,6 +45,8 @@ if test -z $#;
                                                 /bin/echo "#include \"/var/dialplan/macro.conf\"" >> /var/dialplan/$9.conf
                                                 /bin/echo "include => macro-voicemail" >> /var/dialplan/$9.conf
                                                 /bin/echo "include => standard1" >> /var/dialplan/$9.conf
+												verif=`grep -w -n "\[standard1\]" /var/dialplan/standard.conf | cut -d":" -f2`
+												/bin/echo "include => $9" >> /var/dialplan/standard.conf
                                                 /bin/echo "include => macro-conference_mdp" >> /var/dialplan/$9.conf
                                                 /bin/echo "include => macro-conference_smdp" >> /var/dialplan/$9.conf
                                                 /bin/echo "include => macro-conference_mdpt" >> /var/dialplan/$9.conf
@@ -98,6 +100,8 @@ if test -z $#;
                                                 /bin/echo "include => macro-conference_smdpt" >> /var/dialplan/$9.conf
 												/bin/echo "include => Queues" >> /var/dialplan/$9.conf
 												/bin/echo "include => standard1" >> /var/dialplan/$9.conf
+												verif=`grep -w -n "\[standard1\]" /var/dialplan/standard.conf | cut -d":" -f2`
+												/bin/echo "include => $9" >> /var/dialplan/standard.conf
                                                 /bin/echo "exten => $4,1,Dial(dahdi/$6/30)    ;----$1----" >> /var/dialplan/$9.conf
                                                 /bin/echo "#include \"/var/dialplan/$9.conf\"" >> /etc/asterisk/extensions.conf
 
