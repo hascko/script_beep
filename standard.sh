@@ -27,12 +27,13 @@ if test -z $#;
                 mv /var/tmp/temp /var/dialplan/standard.conf
 
                 #Réécriture de la ligne avec nos parametres
-                sed "5i exten => 1010,1,GotoIfTime($1:$2-$3:$4,$5-$6,*,*?standard1,\${EXTEN},1)" /var/dialplan/standard.conf > /var/tmp/temp
+                sed "5i exten => 1010,1,GotoIfTime($1:$2-$3:$4,$5-$6,*,*?opened,\${EXTEN},1)" /var/dialplan/standard.conf > /var/tmp/temp
                 mv /var/tmp/temp /var/dialplan/standard.conf
 				
-				sed "8i exten => 1011,1,GotoIfTime($1:$2-$3:$4,$5-$6,*,*?standard1,\${EXTEN},1)" /var/dialplan/standard.conf > /var/tmp/temp
+				sed "8i exten => 1011,1,GotoIfTime($1:$2-$3:$4,$5-$6,*,*?opened,\${EXTEN},1)" /var/dialplan/standard.conf > /var/tmp/temp
                 mv /var/tmp/temp /var/dialplan/standard.conf
 fi
 
 #Redemarrage des services asterisk
 asterisk -rx "dialplan reload"
+asterisk -rx "sip reload"
