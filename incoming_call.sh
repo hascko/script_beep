@@ -1,7 +1,5 @@
 #!/bin/bash
 
-#Il faudrait ajouter une proposition pour le callcenter
-
 choix=$1
 receiver=$2
 num1=$3
@@ -10,6 +8,7 @@ num3=$5
 proposition_svi_1=$6
 proposition_svi_2=$7
 proposition_svi_3=$8
+nom_call=$9
 
 p1=`grep -w -n ";fin les conditions" /var/dialplan/ippi.conf | cut -d":" -f1`
 p2=`grep -w -n ";les conditions" /var/dialplan/ippi.conf | cut -d":" -f1`
@@ -30,6 +29,15 @@ if [ "$choix" == "1" ];then
         sed ""$p1"i exten => s,"$p",GotoIf(\$[\${CUT(CUT(SIP_HEADER(TO),@,1),:,2)} = $num1]?"$receiver",s,1) ;"$receiver"_"$num1"_"$num2"_"$num3" +" /var/dialplan/ippi.conf > fichier.tmp && mv -f fichier.tmp /var/dialplan/ippi.conf; rm -f fichier.tmp
         let p++
         fi
+
+        if [ "$proposition_svi_1" == "callcenter" ];then
+                proposition_svi_1="le centre d'appel"
+        elif [ "$proposition_svi_2" == "callcenter" ];then
+                proposition_svi_2="le centre d'appel"
+        elif [ "$proposition_svi_3" == "callcenter" ];then
+                proposition_svi_3="le centre d'appel"
+        fi
+
         echo ";$receiver"_"$num1"_"$num2"_"$num3" >> /var/dialplan/ippi.conf
         echo "[$receiver]" >> /var/dialplan/ippi.conf
         echo "exten => s,1,Answer()" >> /var/dialplan/ippi.conf
@@ -42,6 +50,14 @@ if [ "$choix" == "1" ];then
         echo "exten => s,8,agi(googletts.agi,\"Appuyez sur dièse si vous souhaitez réécouter ce  message\",fr,any)" >> /var/dialplan/ippi.conf
         echo "exten => s,9,WaitExten()" >> /var/dialplan/ippi.conf
 
+        if [ "$proposition_svi_1" == "le centre d'appel" ];then
+                proposition_svi_1="callcenter"
+        elif [ "$proposition_svi_2" == "le centre d'appel" ];then
+                proposition_svi_2="callcenter"
+        elif [ "$proposition_svi_3" == "le centre d'appel" ];then
+                proposition_svi_3="callcenter"
+        fi
+
         if [ "$proposition_svi_1" == "conférence" ];then
                 echo "exten => 1,1,agi(googletts.agi,\"Composez le numéro de conférence\",fr,any)" >> /var/dialplan/ippi.conf
                 echo "exten => 1,2,Read(ext,\"\",4)" >> /var/dialplan/ippi.conf
@@ -52,6 +68,9 @@ if [ "$choix" == "1" ];then
                 echo "exten => 1,1,agi(googletts.agi,\"Composez le numéro de la personne\",fr,any)" >> /var/dialplan/ippi.conf
                 echo "exten => 1,2,Read(ext,\"\",4)" >> /var/dialplan/ippi.conf
                 echo "exten => 1,3,Goto(travail,\${ext},1)" >> /var/dialplan/ippi.conf
+        elif [ "$proposition_svi_1" == "callcenter" ];then
+                num_call=`grep -w -n "the $nom_call queue" /var/dialplan/callcenter.conf | cut -d" " -f3 | cut -d"," -f1`
+                echo "exten => 1,1,Goto(Queues,$num_call,1)" >> /var/dialplan/ippi.conf
         else
                 echo "exten => 1,1,Dial(SIP/$proposition_svi_1)" >> /var/dialplan/ippi.conf
         fi
@@ -66,6 +85,9 @@ if [ "$choix" == "1" ];then
                 echo "exten => 2,1,agi(googletts.agi,\"Composez le numéro de la personne\",fr,any)" >> /var/dialplan/ippi.conf
                 echo "exten => 2,2,Read(ext,\"\",4)" >> /var/dialplan/ippi.conf
                 echo "exten => 2,3,Goto(travail,\${ext},1)" >> /var/dialplan/ippi.conf
+        elif [ "$proposition_svi_2" == "callcenter" ];then
+                num_call=`grep -w -n "the $nom_call queue" /var/dialplan/callcenter.conf | cut -d" " -f3 | cut -d"," -f1`
+                echo "exten => 1,1,Goto(Queues,$num_call,1)" >> /var/dialplan/ippi.conf
         else
                 echo "exten => 2,1,Dial(SIP/$proposition_svi_2)" >> /var/dialplan/ippi.conf
         fi
@@ -80,6 +102,9 @@ if [ "$choix" == "1" ];then
                 echo "exten => 3,1,agi(googletts.agi,\"Composez le numéro de la personne\",fr,any)" >> /var/dialplan/ippi.conf
                 echo "exten => 3,2,Read(ext,\"\",4)" >> /var/dialplan/ippi.conf
                 echo "exten => 3,3,Goto(travail,\${ext},1)" >> /var/dialplan/ippi.conf
+        elif [ "$proposition_svi_3" == "callcenter" ];then
+                num_call=`grep -w -n "the $nom_call queue" /var/dialplan/callcenter.conf | cut -d" " -f3 | cut -d"," -f1`
+                echo "exten => 1,1,Goto(Queues,$num_call,1)" >> /var/dialplan/ippi.conf
         else
                 echo "exten => 3,1,Dial(SIP/$proposition_svi_3)" >> /var/dialplan/ippi.conf
         fi
