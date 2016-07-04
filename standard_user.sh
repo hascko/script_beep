@@ -28,8 +28,6 @@ if test -z $#;
 				#sed "17i exten => s,1,Dial(SIP\/$1,15,tT)      ;----UTILISATEUR----;" /var/dialplan/standard.conf > /var/tmp/temp
                 #mv /var/tmp/temp /var/dialplan/standard.conf
 				sed -i '/;----FIN3----;/i \exten => s,1,Dial(SIP\/'$1',15,tT)      ;----UTILISATEUR----;' /var/dialplan/standard.conf
-				
-				echo $1;
 fi
 
 #Redemarrage des services asterisk
