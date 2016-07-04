@@ -1,8 +1,8 @@
 #!/bin/bash
 
 #Creation du dialplan
-/bin/echo "#include \"/var/dialplan/conference.conf\"" >> /var/dialplan/$1.conf
-/bin/echo "#include \"/var/dialplan/macro.conf\"" >> /var/dialplan/$1.conf
+#/bin/echo "#include \"/var/dialplan/conference.conf\"" >> /var/dialplan/$1.conf
+#/bin/echo "#include \"/var/dialplan/macro.conf\"" >> /var/dialplan/$1.conf
 /bin/echo "[$1]" >> /var/dialplan/$1.conf                                                
 /bin/echo "include => macro-voicemail" >> /var/dialplan/$1.conf
 /bin/echo "include => standard1" >> /var/dialplan/$1.conf
