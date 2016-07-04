@@ -49,7 +49,7 @@ if test -z $#;
                                                 /bin/echo "include => macro-conference_mdpt" >> /var/dialplan/$9.conf
                                                 /bin/echo "include => macro-conference_smdpt" >> /var/dialplan/$9.conf
                                                 /bin/echo "include => Queues" >> /var/dialplan/$9.conf
-                                                /bin/echo "exten => 600,1,VoiceMailMain(${CALLERID(num)}@voicemail)" >> /var/dialplan/$9.conf
+                                                /bin/echo 'exten => 600,1,VoiceMailMain(${CALLERID(num)}@voicemail)' >> /var/dialplan/$9.conf
 												/bin/echo " " >> /var/dialplan/$9.conf
 												/bin/echo "exten => $4,1,Macro(voicemail,$1)    ;----$1----" >> /var/dialplan/$9.conf
                                                 /bin/echo "#include \"/var/dialplan/$9.conf\"" >> /etc/asterisk/extensions.conf
