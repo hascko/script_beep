@@ -9,6 +9,6 @@ sub recherche {
 }
 
 find(\&recherche,"/var/www/site_beep/voicemail/voicemail/$ARGV[0]/INBOX");
-open(FD, ">test.txt");
+open(FD, ">count_vocale.txt");
 
 print (FD "$n\n");
