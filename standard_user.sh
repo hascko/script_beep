@@ -21,10 +21,10 @@ if test -z $#;
                 mv /var/tmp/temp /var/tmp/standard.conf
 
                 #Réécriture de la ligne avec nos parametres
-                sed "16i exten => 1011,1,Dial(SIP\/$2,15,tT)   ;----UTILISATEUR----;" /var/tmp/standard.conf > /var/tmp/temp
+                sed "16i exten => 1011,1,Dial(SIP\/$1,15,tT)   ;----UTILISATEUR----;" /var/tmp/standard.conf > /var/tmp/temp
                 mv /var/tmp/temp /var/tmp/standard.conf
 				
-				sed "17i exten => s,1,Dial(SIP\/$2,15,tT)      ;----UTILISATEUR----;" /var/tmp/standard.conf > /var/tmp/temp
+				sed "17i exten => s,1,Dial(SIP\/$1,15,tT)      ;----UTILISATEUR----;" /var/tmp/standard.conf > /var/tmp/temp
                 mv /var/tmp/temp /var/tmp/standard.conf
 fi
 
