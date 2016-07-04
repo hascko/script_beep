@@ -24,4 +24,4 @@ echo "nat=yes" >> /var/user/ippi.conf
 echo "canreinvite=no" >> /var/user/ippi.conf
 echo ";fin $compte"_"$host"_"$port" >> /var/user/ippi.conf
 #=================================fin==============================
-asterisk -rx "sip reload"
+asterisk -rx "reload"

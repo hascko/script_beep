@@ -9,4 +9,4 @@ verif2=`grep -w "\#include \"/var/dialplan/$context2.conf\"" /var/dialplan/$cont
 
 echo "include => $context2 " >> /var/dialplan/$context.conf
 
-asterisk -rx "dialplan reload"
+asterisk -rx "reload"

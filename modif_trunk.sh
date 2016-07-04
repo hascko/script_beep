@@ -16,4 +16,4 @@ verif2=`grep -w -n "\;$compte\_$host\_$port" /var/user/ippi.conf | cut -d":" -f1
 verif2=$((verif + 5))
 sed ""$verif2"c secret=$new_mdp" /var/user/ippi.conf > fichier.tmp && mv -f fichier.tmp /var/user/ippi.conf; rm -f fichier.tmp
 
-asterisk -rx "sip reload"
+asterisk -rx "reload"
