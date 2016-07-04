@@ -1,8 +1,8 @@
 #!/bin/bash
 
 #Creation du dialplan
-/bin/echo "#include \"/var/dialplan/conference.conf\"" >> /var/dialplan/$1.conf
-/bin/echo "#include \"/var/dialplan/macro.conf\"" >> /var/dialplan/$1.conf
+#/bin/echo "#include \"/var/dialplan/conference.conf\"" >> /var/dialplan/$1.conf
+#/bin/echo "#include \"/var/dialplan/macro.conf\"" >> /var/dialplan/$1.conf
 /bin/echo "[$1]" >> /var/dialplan/$1.conf                                                
 /bin/echo "include => macro-voicemail" >> /var/dialplan/$1.conf
 /bin/echo "include => standard1" >> /var/dialplan/$1.conf
@@ -15,6 +15,7 @@ let verif++
 /bin/echo "include => macro-conference_mdpt" >> /var/dialplan/$1.conf
 /bin/echo "include => macro-conference_smdpt" >> /var/dialplan/$1.conf
 /bin/echo "include => Queues" >> /var/dialplan/$1.conf
+/bin/echo 'exten => 600,1,VoiceMailMain(${CALLERID(num)}@voicemail)' >> /var/dialplan/$1.conf
 /bin/echo " " >> /var/dialplan/$1.conf
 /bin/echo "#include \"/var/dialplan/$1.conf\"" >> /etc/asterisk/extensions.conf
 
