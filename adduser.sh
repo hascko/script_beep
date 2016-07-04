@@ -31,21 +31,18 @@ if test -z $#;
                                         then
                                                 #Ajout du dialplan
                                                 /bin/echo "Plan d'appels existants"
-                                                /bin/echo "exten => $4,1,Macro(voicemail,$1)    ;----$1----" >> /var/dialplan/$9.conf
-												
-												/bin/echo "#include \"/var/dialplan/$9.conf\"" >> /etc/asterisk/extensions.conf
+                                                /bin/echo "exten => $4,1,Macro(voicemail,$1)    ;----$1----" >> /var/dialplan/$9.conf							
 
                                                 #Ajout du mail
                                                 /bin/echo "[$9]    ;----$1----" >> /etc/asterisk/voicemail.conf
                                                 /bin/echo "$4 => $2,$1,$3    ;----$1----" >> /etc/asterisk/voicemail.conf
                                         else
                                                 #Creation du dialplan
-                                                /bin/echo "[$9]" >> /var/dialplan/$9.conf
-                                                /bin/echo "#include \"/var/dialplan/conference.conf\"" >> /var/dialplan/$9.conf
-                                                /bin/echo "#include \"/var/dialplan/macro.conf\"" >> /var/dialplan/$9.conf
-                                                /bin/echo "include => macro-voicemail" >> /var/dialplan/$9.conf
-                                                /bin/echo "include => standard1" >> /var/dialplan/$9.conf
-												verif=`grep -w -n "\[standard1\]" /var/dialplan/standard.conf | cut -d":" -f2`
+                                                /bin/echo "[$9]" >> /var/dialplan/$9.conf                                                
+                                                /bin/echo "include => macro-voicemail" >> /var/dialplan/$9.conf                                    
+												verif=`grep -w -n "\[standard1\]" /var/dialplan/standard.conf | cut -d":" -f1`
+                                                let verif++
+                                                sed ""$verif"i include => $9" /var/dialplan/standard.conf > fichier.tmp && mv -f fichier.tmp /var/dialplan/standard.conf; rm -f fichier.tmp
 												/bin/echo "include => $9" >> /var/dialplan/standard.conf
                                                 /bin/echo "include => macro-conference_mdp" >> /var/dialplan/$9.conf
                                                 /bin/echo "include => macro-conference_smdp" >> /var/dialplan/$9.conf
@@ -83,23 +80,19 @@ if test -z $#;
                                                 #Ajout du dialplan
                                                 /bin/echo "Plan d'appels existants"
                                                 /bin/echo "exten => $4,1,Dial(dahdi/2/30)    ;----$1----" >> /var/dialplan/$9.conf
-
-												/bin/echo "#include \"/var/dialplan/$9.conf\"" >> /etc/asterisk/extensions.conf
 												
                                                 #Ajout du mail
                                                 /bin/echo "[$9]    ;----$1----" >> /etc/asterisk/voicemail.conf
                                                 /bin/echo "$4 => $2,$1,$3    ;----$1----" >> /etc/asterisk/voicemail.conf
                                         else
-                                                #Creation du dialplan
-                                                /bin/echo "[$9]" >> /var/dialplan/$9.conf
-												/bin/echo "#include \"/var/dialplan/conference.conf\"" >> /var/dialplan/$9.conf
+                                                #Creation du dialplan                                    
+                                                /bin/echo "[$9]" >> /var/dialplan/$9.conf												
                                                 /bin/echo " " >> /var/dialplan/$9.conf
 												/bin/echo "include => macro-conference_mdp" >> /var/dialplan/$9.conf
                                                 /bin/echo "include => macro-conference_smdp" >> /var/dialplan/$9.conf
                                                 /bin/echo "include => macro-conference_mdpt" >> /var/dialplan/$9.conf
                                                 /bin/echo "include => macro-conference_smdpt" >> /var/dialplan/$9.conf
-												/bin/echo "include => Queues" >> /var/dialplan/$9.conf
-												/bin/echo "include => standard1" >> /var/dialplan/$9.conf
+												/bin/echo "include => Queues" >> /var/dialplan/$9.conf												
 												verif=`grep -w -n "\[standard1\]" /var/dialplan/standard.conf | cut -d":" -f1`
                                                 let verif++
                                                 sed ""$verif"i include => $9" /var/dialplan/standard.conf > fichier.tmp && mv -f fichier.tmp /var/dialplan/standard.conf; rm -f fichier.tmp
@@ -124,9 +117,7 @@ if test -z $#;
 
                                                         then 
                                                                 #Creation de l'utilisateur dans /var/user
-                                                                #/bin/echo "signaling=fxo_ks" >> /var/user/$1.conf
-                                                                #/bin/echo "callerid=combinet <$4>" >> /var/user/$1.conf
-                                                                #/bin/echo "echocancel=yes" >> /var/user/$1.conf
+                                                                
                                                                 /bin/echo "[$1]    ;----$1----" >> /var/user/$1.conf
                                                                 /bin/echo "echocancel = yes    ;----$1----" >> /var/user/$1.conf
                                                                 /bin/echo "group=$6    ;----$1----" >> /var/user/$1.conf
@@ -150,5 +141,5 @@ if test -z $#;
 fi
 
 #Redemarrage des services asterisk
-asterisk -rx "dialplan reload"
-asterisk -rx "sip reload"
+asterisk -rx "reload"
+

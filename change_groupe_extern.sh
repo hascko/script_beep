@@ -28,5 +28,8 @@ let i++
 done
 
 sed -i "/exten/d" /var/dialplan/$nom_groupe_extern.conf
+sed /$nom_groupe_extern.conf/d /etc/asterisk/extensions.conf > /var/tmp/temp
+mv /var/tmp/temp /etc/asterisk/extensions.conf
+rm /var/dialplan/$nom_groupe_extern.conf
 
-asterisk -rx "dialplan reload"
+asterisk -rx "reload"
