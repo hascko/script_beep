@@ -34,7 +34,7 @@ if test -z $#;
                                                 /bin/echo "exten => $4,1,Macro(voicemail,$1)    ;----$1----" >> /var/dialplan/$9.conf							
 
                                                 #Ajout du mail
-                                                /bin/echo "[$9]    ;----$1----" >> /etc/asterisk/voicemail.conf
+                                                #/bin/echo "[$9]    ;----$1----" >> /etc/asterisk/voicemail.conf
                                                 /bin/echo "$4 => $2,$1,$3    ;----$1----" >> /etc/asterisk/voicemail.conf
                                         else
                                                 #Creation du dialplan
@@ -83,7 +83,7 @@ if test -z $#;
                                                 /bin/echo "exten => $4,1,Dial(dahdi/2/30)    ;----$1----" >> /var/dialplan/$9.conf
 												
                                                 #Ajout du mail
-                                                /bin/echo "[$9]    ;----$1----" >> /etc/asterisk/voicemail.conf
+                                                #/bin/echo "[$9]    ;----$1----" >> /etc/asterisk/voicemail.conf
                                                 /bin/echo "$4 => $2,$1,$3    ;----$1----" >> /etc/asterisk/voicemail.conf
                                         else
                                                 #Creation du dialplan                                    
