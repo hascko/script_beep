@@ -136,7 +136,9 @@ elif [ "$choix" == "2" ];then
         fi
         echo ";$receiver"_"$num1"_"$num2"_"$num3" >> /var/dialplan/ippi.conf
         echo "[$receiver]" >> /var/dialplan/ippi.conf
-        echo "exten => s,1,Dial(SIP/$receiver)" >> /var/dialplan/ippi.conf
+        receiver=`grep -w "exten => 1011,1,Dial(SIP" /var/dialplan/standard.conf | cut -d"," -f3 | cut -d"/" -f2`
+        echo "exten => s,1,Dial(dahdi/2/30)" >> /var/dialplan/ippi.conf
+        receiver="standard"
         echo ";fin $receiver"_"$num1"_"$num2"_"$num3" >> /var/dialplan/ippi.conf
 
 else
