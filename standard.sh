@@ -34,6 +34,10 @@ if test -z $#;
 				#sed "8i exten => 1011,1,GotoIfTime($1:$2-$3:$4,$5-$6,*,*?opened,\${EXTEN},1)" /var/dialplan/standard.conf > /var/tmp/temp
                 #mv /var/tmp/temp /var/dialplan/standard.conf
 				sed -i '/;----FIN2----;/i \exten => 1011,1,GotoIfTime('$1':'$2'-'$3':'$4','$5'-'$6',*,*?opened,\${EXTEN},1)' /var/dialplan/standard.conf
+
+                #On modifie les horaires du standard dans le SVI
+                test2=`grep -w -n "GotoIfTime" /var/dialplan/ippi.conf | cut -d":" -f1`
+                sed ""$test2"c exten => s,1,GotoIfTime($1:$2-$3:$4,$5-$6,*,*?opened,\${EXTEN},1)" /var/dialplan/ippi.conf > fichier.tmp && mv -f fichier.tmp /var/dialplan/ippi.conf; rm -f fichier.tmp
 fi
 
 #Redemarrage des services asterisk
