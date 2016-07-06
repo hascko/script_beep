@@ -31,7 +31,7 @@ if test -z $#;
 
 			#On modifie dans le svi si le standard est positionne
 			test=`grep -w -n "Dial(dahdi/2/30)" /var/dialplan/ippi.conf | cut -d":" -f1`
-			sed ""$test"c exten => s,1,Dial(dahdi/2/30&/SIP/$1,15,tT)" /var/dialplan/ippi.conf > fichier.tmp && mv -f fichier.tmp /var/dialplan/ippi.conf; rm -f fichier.tmp	
+			sed ""$test"c exten => s,1,Dial(dahdi/2/30) && Dial(SIP/$1,15,tT)" /var/dialplan/ippi.conf > fichier.tmp && mv -f fichier.tmp /var/dialplan/ippi.conf; rm -f fichier.tmp	
 
 fi
 
