@@ -9,12 +9,21 @@ if test -z $#;
 				echo $test >> /var/dialplan/$3.conf
 				
 				#Suppression de la ligne du groupe
-				sed '/context/d' /var/user/$1.conf > /var/tmp/temp
+			
+				
+				sed '/secret/d' /var/user/$1.conf > /var/tmp/temp
 				mv /var/tmp/temp /var/user/$1.conf
-
+					
+				sed "3i secret=$4" /var/user/$1.conf > /var/tmp/temp
+				mv /var/tmp/temp /var/user/$1.conf
 				#Réécriture de la ligne
+				sed '/context/d' /var/user/$1.conf > /var/tmp/temp
+				mv /var/tmp/temp /var/user/$1.conf	
+				
 				sed "4i context=$3" /var/user/$1.conf > /var/tmp/temp
-				mv /var/tmp/temp /var/user/$1.conf
+				mv /var/tmp/temp /var/user/$1.conf				
+				
+
 
 fi
 
