@@ -181,7 +181,7 @@ elif [ "$choix" == "2" ];then
         horaire2=`grep -w "exten => 1011,1,GotoIfTime" /var/dialplan/standard.conf | cut -d"," -f4`
         horaire="exten => s,1,$horaire1,$horaire2,*,*?opened,\${EXTEN},1)"
         echo "$horaire" >> /var/dialplan/ippi.conf
-        echo "exten => s,n,Goto(closed,${EXTEN},1)" >> /var/dialplan/ippi.conf
+        echo "exten => s,n,Goto(closed,\${EXTEN},1)" >> /var/dialplan/ippi.conf
         echo "[opened]" >> /var/dialplan/ippi.conf
         echo "exten => s,1,Dial(dahdi/2/30) && Dial(SIP/$standard,15,tT)" >> /var/dialplan/ippi.conf
         echo "[closed]" >> /var/dialplan/ippi.conf
