@@ -77,7 +77,7 @@ if [ "$choix" == "1" ];then
                 echo "$horaire" >> /var/dialplan/ippi.conf
                 echo "exten => s,n,Goto(closed,${EXTEN},1)" >> /var/dialplan/ippi.conf
                 echo "[opened]" >> /var/dialplan/ippi.conf
-                echo "exten => s,1,Dial(dahdi/2/30) && Dial(SIP/$standard,15,tT)" >> /var/dialplan/ippi.conf
+                echo "exten => s,1,Dial(dahdi/2/30&/SIP/$1,15,tT)" >> /var/dialplan/ippi.conf
                 echo "[closed]" >> /var/dialplan/ippi.conf
                 echo "exten => s,1,Answer()" >> /var/dialplan/ippi.conf
                 echo "exten => s,n,Playtones(busy)" >> /var/dialplan/ippi.conf
@@ -107,7 +107,7 @@ if [ "$choix" == "1" ];then
                 echo "$horaire" >> /var/dialplan/ippi.conf
                 echo "exten => s,n,Goto(closed,${EXTEN},1)" >> /var/dialplan/ippi.conf
                 echo "[opened]" >> /var/dialplan/ippi.conf
-                echo "exten => s,1,Dial(dahdi/2/30) && Dial(SIP/$standard,15,tT)" >> /var/dialplan/ippi.conf
+                echo "exten => s,1,Dial(dahdi/2/30&/SIP/$1,15,tT)" >> /var/dialplan/ippi.conf
                 echo "[closed]" >> /var/dialplan/ippi.conf
                 echo "exten => s,1,Answer()" >> /var/dialplan/ippi.conf
                 echo "exten => s,n,Playtones(busy)" >> /var/dialplan/ippi.conf
@@ -137,7 +137,7 @@ if [ "$choix" == "1" ];then
                 echo "$horaire" >> /var/dialplan/ippi.conf
                 echo "exten => s,n,Goto(closed,${EXTEN},1)" >> /var/dialplan/ippi.conf
                 echo "[opened]" >> /var/dialplan/ippi.conf
-                echo "exten => s,1,Dial(dahdi/2/30) && Dial(SIP/$standard,15,tT)" >> /var/dialplan/ippi.conf
+                echo "exten => s,1,Dial(dahdi/2/30&/SIP/$1,15,tT)" >> /var/dialplan/ippi.conf
                 echo "[closed]" >> /var/dialplan/ippi.conf
                 echo "exten => s,1,Answer()" >> /var/dialplan/ippi.conf
                 echo "exten => s,n,Playtones(busy)" >> /var/dialplan/ippi.conf
@@ -183,7 +183,7 @@ elif [ "$choix" == "2" ];then
         echo "$horaire" >> /var/dialplan/ippi.conf
         echo "exten => s,n,Goto(closed,\${EXTEN},1)" >> /var/dialplan/ippi.conf
         echo "[opened]" >> /var/dialplan/ippi.conf
-        echo "exten => s,1,Dial(dahdi/2/30) && Dial(SIP/$standard,15,tT)" >> /var/dialplan/ippi.conf
+        echo "exten => s,1,Dial(dahdi/2/30&/SIP/$1,15,tT)" >> /var/dialplan/ippi.conf
         echo "[closed]" >> /var/dialplan/ippi.conf
         echo "exten => s,1,Answer()" >> /var/dialplan/ippi.conf
         echo "exten => s,n,Playtones(busy)" >> /var/dialplan/ippi.conf
