@@ -67,13 +67,13 @@ if [ "$choix" == "1" ];then
         if [ "$proposition_svi_1" == "conférence" ];then
                 echo "exten => 1,1,agi(googletts.agi,\"Composez le numéro de conférence\",fr,any)" >> /var/dialplan/ippi.conf
                 echo "exten => 1,2,Read(ext,\"\",4)" >> /var/dialplan/ippi.conf
-                echo "exten => 1,3,Goto(default,\${ext},1)" >> /var/dialplan/ippi.conf
+                echo "exten => 1,3,Goto(svi,\${ext},1)" >> /var/dialplan/ippi.conf
         elif [ "$proposition_svi_1" == "standard" ];then
                 echo "exten => 1,1,Dial(SIP/standard)" >> /var/dialplan/ippi.conf
         elif [ "$proposition_svi_1" == "composer" ];then
                 echo "exten => 1,1,agi(googletts.agi,\"Composez le numéro de la personne\",fr,any)" >> /var/dialplan/ippi.conf
                 echo "exten => 1,2,Read(ext,\"\",4)" >> /var/dialplan/ippi.conf
-                echo "exten => 1,3,Goto(default,\${ext},1)" >> /var/dialplan/ippi.conf
+                echo "exten => 1,3,Goto(svi,\${ext},1)" >> /var/dialplan/ippi.conf
         elif [ "$proposition_svi_1" == "callcenter" ];then
                 num_call=`grep -w -n "the $nom_call queue" /var/dialplan/callcenter.conf | cut -d" " -f3 | cut -d"," -f1`
                 echo "exten => 1,1,Goto(Queues,$num_call,1)" >> /var/dialplan/ippi.conf
@@ -84,13 +84,13 @@ if [ "$choix" == "1" ];then
         if [ "$proposition_svi_2" == "conférence" ];then
                 echo "exten => 2,1,Background(IVR-007)" >> /var/dialplan/ippi.conf
                 echo "exten => 2,2,Read(ext,\"\",4)" >> /var/dialplan/ippi.conf
-                echo "exten => 2,3,Goto(default,\${ext},1)" >> /var/dialplan/ippi.conf
+                echo "exten => 2,3,Goto(svi,\${ext},1)" >> /var/dialplan/ippi.conf
         elif [ "$proposition_svi_2" == "standard" ];then
                 echo "exten => 2,1,Dial(SIP/standard)" >> /var/dialplan/ippi.conf
         elif [ "$proposition_svi_2" == "composer" ];then
                 echo "exten => 2,1,agi(googletts.agi,\"Composez le numéro de la personne\",fr,any)" >> /var/dialplan/ippi.conf
                 echo "exten => 2,2,Read(ext,\"\",4)" >> /var/dialplan/ippi.conf
-                echo "exten => 2,3,Goto(default,\${ext},1)" >> /var/dialplan/ippi.conf
+                echo "exten => 2,3,Goto(svi,\${ext},1)" >> /var/dialplan/ippi.conf
         elif [ "$proposition_svi_2" == "callcenter" ];then
                 num_call=`grep -w -n "the $nom_call queue" /var/dialplan/callcenter.conf | cut -d" " -f3 | cut -d"," -f1`
                 echo "exten => 1,1,Goto(Queues,$num_call,1)" >> /var/dialplan/ippi.conf
@@ -101,13 +101,13 @@ if [ "$choix" == "1" ];then
         if [ "$proposition_svi_3" == "conférence" ];then
                 echo "exten => 3,1,agi(googletts.agi,\"Composez le numéro de conférence\",fr,any)" >> /var/dialplan/ippi.conf
                 echo "exten => 3,2,Read(ext,\"\",4)" >> /var/dialplan/ippi.conf
-                echo "exten => 3,3,Goto(default,\${ext},1)" >> /var/dialplan/ippi.conf
+                echo "exten => 3,3,Goto(svi,\${ext},1)" >> /var/dialplan/ippi.conf
         elif [ "$proposition_svi_3" == "standard" ];then
                 echo "exten => 3,1,Dial(SIP/standard)" >> /var/dialplan/ippi.conf
         elif [ "$proposition_svi_3" == "composer" ];then
                 echo "exten => 3,1,Background(IVR-008)" >> /var/dialplan/ippi.conf
                 echo "exten => 3,2,Read(ext,\"\",4)" >> /var/dialplan/ippi.conf
-                echo "exten => 3,3,Goto(default,\${ext},1)" >> /var/dialplan/ippi.conf
+                echo "exten => 3,3,Goto(svi,\${ext},1)" >> /var/dialplan/ippi.conf
         elif [ "$proposition_svi_3" == "callcenter" ];then
                 num_call=`grep -w -n "the $nom_call queue" /var/dialplan/callcenter.conf | cut -d" " -f3 | cut -d"," -f1`
                 echo "exten => 1,1,Goto(Queues,$num_call,1)" >> /var/dialplan/ippi.conf
