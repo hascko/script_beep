@@ -82,7 +82,8 @@ if [ "$choix" == "1" ];then
                 echo "exten => s,1,Answer()" >> /var/dialplan/ippi.conf
                 echo "exten => s,n,Playtones(busy)" >> /var/dialplan/ippi.conf
                 echo "exten => s,n,Busy(5)" >> /var/dialplan/ippi.conf
-                echo "exten => s,n,Hangup" >> /var/dialplan/ippi.conf        elif [ "$proposition_svi_1" == "composer" ];then
+                echo "exten => s,n,Hangup" >> /var/dialplan/ippi.conf        
+        elif [ "$proposition_svi_1" == "composer" ];then
                 echo "exten => 1,1,agi(googletts.agi,\"Composez le numéro de la personne\",fr,any)" >> /var/dialplan/ippi.conf
                 echo "exten => 1,2,Read(ext,\"\",4)" >> /var/dialplan/ippi.conf
                 echo "exten => 1,3,Goto(svi,\${ext},1)" >> /var/dialplan/ippi.conf
@@ -111,7 +112,8 @@ if [ "$choix" == "1" ];then
                 echo "exten => s,1,Answer()" >> /var/dialplan/ippi.conf
                 echo "exten => s,n,Playtones(busy)" >> /var/dialplan/ippi.conf
                 echo "exten => s,n,Busy(5)" >> /var/dialplan/ippi.conf
-                echo "exten => s,n,Hangup" >> /var/dialplan/ippi.conf        elif [ "$proposition_svi_2" == "composer" ];then
+                echo "exten => s,n,Hangup" >> /var/dialplan/ippi.conf        
+        elif [ "$proposition_svi_2" == "composer" ];then
                 echo "exten => 2,1,agi(googletts.agi,\"Composez le numéro de la personne\",fr,any)" >> /var/dialplan/ippi.conf
                 echo "exten => 2,2,Read(ext,\"\",4)" >> /var/dialplan/ippi.conf
                 echo "exten => 2,3,Goto(svi,\${ext},1)" >> /var/dialplan/ippi.conf
