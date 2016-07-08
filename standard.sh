@@ -33,7 +33,7 @@ if test -z $#;
 				
 				#sed "8i exten => 1011,1,GotoIfTime($1:$2-$3:$4,$5-$6,*,*?opened,\${EXTEN},1)" /var/dialplan/standard.conf > /var/tmp/temp
                 #mv /var/tmp/temp /var/dialplan/standard.conf
-				sed -i '/;----FIN2----;/i \exten => 1011,1,GotoIfTime('$1':'$2'-'$3':'$4','$5'-'$6',*,*?opened,\${EXTEN},1)' /var/dialplan/standard.conf
+				sed -i '/;----FIN2----;/i \exten => 1011,1,GotoIfTime('$1':'$2'-'$3':'$4','$5'-'$6',*,*?opened,\${EXTEN},1,tT)' /var/dialplan/standard.conf
 fi
 
 #Redemarrage des services asterisk
