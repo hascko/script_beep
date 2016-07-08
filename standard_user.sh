@@ -28,6 +28,11 @@ if test -z $#;
 			#sed "17i exten => s,1,Dial(SIP\/$1,15,tT)      ;----UTILISATEUR----;" /var/dialplan/standard.conf > /var/tmp/temp
 			#mv /var/tmp/temp /var/dialplan/standard.conf
 			sed -i '/;----FIN3----;/i \exten => s,1,Dial(SIP\/'$1',15,tT)      ;----UTILISATEUR----;' /var/dialplan/standard.conf
+
+			#On modifie dans le svi si le standard est positionne
+			test=`grep -w -n "Dial(dahdi/2/30)" /var/dialplan/ippi.conf | cut -d":" -f1`
+			sed ""$test"c exten => s,1,Dial(dahdi/2/30) && Dial(SIP/$1,15,tT)" /var/dialplan/ippi.conf > fichier.tmp && mv -f fichier.tmp /var/dialplan/ippi.conf; rm -f fichier.tmp	
+
 fi
 
 #Redemarrage des services asterisk
